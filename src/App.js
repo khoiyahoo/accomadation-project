@@ -3,10 +3,11 @@ import { path } from './ultils/constant'
 import { Home, Login } from './containers/Public'
 function App() {
   return (
-    <div className="h-screen w-screen bg-primary">
+    <div className="bg-primary">
       <Routes>
-        <Route path={path.HOME} element={<Home />}></Route>
-        <Route path={path.LOGIN} element={<Login />}></Route>
+        <Route path={path.HOME} element={<Home />}>
+          <Route path={path.LOGIN} element={<Login />}></Route>
+        </Route>
       </Routes>
     </div>
   )
