@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { Button, InputForm } from '../../components'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
+import Swal from 'sweetalert2'
 
 import * as actions from '../../store/action'
 function Login() {
   const location = useLocation()
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { isLoggedIn } = useSelector((state) => state.auth)
+  const { isLoggedIn, msg, update } = useSelector((state) => state.auth)
   const [isRegister, setIsRegister] = useState(location.state?.flag)
   const [invalidFields, setInvalidFields] = useState([])
   const [payload, setPayload] = useState({
@@ -79,6 +80,10 @@ function Login() {
     })
     return invalids
   }
+
+  useEffect(() => {
+    msg && Swal.fire('Oops !', msg, 'error')
+  }, [msg, update])
 
   useEffect(() => {
     isLoggedIn && navigate('/')

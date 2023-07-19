@@ -4,6 +4,7 @@ const initState = {
   isLoggedIn: false,
   token: null,
   msg: '',
+  update: false,
 }
 
 const authReducer = (state = initState, action) => {
