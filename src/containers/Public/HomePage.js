@@ -1,19 +1,14 @@
 import React, { useEffect } from 'react'
 import { List, Search } from './index'
 import { text, location } from '../../ultils/constant'
-import { ProvinceBtn } from '../../components'
+import { ProvinceBtn, RelatedPost } from '../../components'
 import Pagination from './Pagination'
 import ItemSidebar from '../../components/ItemSidebar'
 import { useDispatch, useSelector } from 'react-redux'
 import * as action from '../../store/action'
 function HomePage() {
   const { categories, prices, areas } = useSelector((state) => state.app)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(action.getPrices())
-    dispatch(action.getCategories())
-    dispatch(action.getAreas())
-  }, [])
+
   return (
     <div className="w-full flex flex-col gap-3">
       <div>
@@ -44,6 +39,7 @@ function HomePage() {
             content={areas}
             title="Xem theo diện tích"
           />
+          <RelatedPost />
         </div>
       </div>
     </div>

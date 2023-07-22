@@ -14,6 +14,7 @@ function Header() {
     navigate(path.LOGIN, { state: { flag } })
   }, [])
   const { isLoggedIn } = useSelector((state) => state.auth)
+  const { currentData } = useSelector((state) => state.user)
 
   return (
     <div className="w-3/5">
@@ -45,7 +46,7 @@ function Header() {
           )}
           {isLoggedIn && (
             <div className="flex items-center gap-3 relative">
-              Ten
+              {currentData.name}
               <Button
                 text="Đăng xuất"
                 textColor={'text-white'}
