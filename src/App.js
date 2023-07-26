@@ -7,7 +7,7 @@ import {
   SearchDetail,
   DetailPost,
 } from './containers/Public'
-import { System } from './containers/System'
+import { System, CreatePost } from './containers/System'
 
 import HomePage from './containers/Public/HomePage'
 import { useDispatch, useSelector } from 'react-redux'
@@ -46,7 +46,9 @@ function App() {
             element={<DetailPost />}
           />
         </Route>
-        <Route path={path.SYSTEM} element={<System />}></Route>
+        <Route path={path.SYSTEM} element={<System />}>
+          <Route path={path.CREATE_POST} element={<CreatePost />} />
+        </Route>
       </Routes>
     </div>
   )
