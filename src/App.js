@@ -1,6 +1,14 @@
 import { Routes, Route } from 'react-router-dom'
 import { path } from './ultils/constant'
-import { Home, Login, Rental, SearchDetail } from './containers/Public'
+import {
+  Home,
+  Login,
+  Rental,
+  SearchDetail,
+  DetailPost,
+} from './containers/Public'
+import { System } from './containers/System'
+
 import HomePage from './containers/Public/HomePage'
 import { useDispatch, useSelector } from 'react-redux'
 import * as action from './store/action'
@@ -32,7 +40,13 @@ function App() {
           <Route path={path.NHA_CHO_THUE} element={<Rental />} />
           <Route path={path.SEARCH} element={<SearchDetail />} />
           <Route path={path.LOGIN} element={<Login />}></Route>
+          <Route path={'chi-tiet/*'} element={<DetailPost />} />
+          <Route
+            path={path.DETAL_POST__TITLE__POSTID}
+            element={<DetailPost />}
+          />
         </Route>
+        <Route path={path.SYSTEM} element={<System />}></Route>
       </Routes>
     </div>
   )

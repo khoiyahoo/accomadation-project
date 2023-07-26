@@ -39,3 +39,16 @@ export const apiGetNewPosts = () =>
       reject(error)
     }
   })
+
+export const apiGetOnePost = (id) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: 'get',
+        url: `/api/v1/post/${id}`,
+      })
+      resolve(response)
+    } catch (error) {
+      reject(error)
+    }
+  })
