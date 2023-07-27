@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { Overview, Address, Loading, Button } from '../../components'
-import { apiUploadImages } from '../../services'
+import { apiCreateNewPost, apiUploadImages } from '../../services'
 import icons from '../../ultils/icons'
-import { getCodes, getCodesArea } from '../../ultils/common/getCodes'
+import {
+  getCodePrice,
+  getCodes,
+  getCodesArea,
+} from '../../ultils/common/getCodes'
 import { useSelector } from 'react-redux'
 
 const { BsCameraFill, ImBin } = icons
@@ -23,7 +27,8 @@ const CreatePost = () => {
   })
   const [imagesPreview, setImagesPreview] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const { prices, areas } = useSelector((state) => state.app)
+  const { prices, areas, categories } = useSelector((state) => state.app)
+  const { currentData } = useSelector((state) => state.user)
 
   const handleFiles = async (e) => {
     e.stopPropagation()
@@ -49,11 +54,30 @@ const CreatePost = () => {
       images: prev.images?.filter((item) => item !== image),
     }))
   }
-  const handleSubmit = () => {
-    // let priceCodeArr = getCodes([+payload.priceNumber, +payload.priceNumber], prices)
-    // console.log(priceCodeArr)
-    // let priceCode = priceCodeArr[priceCodeArr.length - 1]?.code
-    // console.log(priceCode)
+  const handleSubmit = async () => {
+    let priceCodeArr = getCodes(
+      +payload.priceNumber / Math.pow(10, 6),
+      prices,
+      1,
+      15,
+    )
+    let priceCode = priceCodeArr[0]?.code
+    let areaCodeArr = getCodesArea(+payload.areaNumber, areas, 0, 90)
+    let areaCode = areaCodeArr[0]?.code
+
+    let finalPayload = {
+      ...payload,
+      priceCode,
+      areaCode,
+      userId: currentData.id,
+      priceNumber: payload.priceNumber / Math.pow(10, 6),
+      target: payload.target || 'Tất cả',
+      label: `${
+        categories?.find((item) => item.code === payload.categoryCode)?.value
+      } ${payload.address.split(',')[0]}`,
+    }
+    await apiCreateNewPost(finalPayload)
+    console.log(finalPayload, '-----data')
   }
 
   return (

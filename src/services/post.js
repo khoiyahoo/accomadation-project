@@ -66,3 +66,17 @@ export const apiUploadImages = (images) =>
       reject(error)
     }
   })
+
+export const apiCreateNewPost = (data) =>
+  new Promise(async (resolve, reject) => {
+    try {
+      const response = await axiosConfig({
+        method: 'post',
+        url: `/api/v1/post/create-new`,
+        data: data,
+      })
+      resolve(response)
+    } catch (error) {
+      reject(error)
+    }
+  })
